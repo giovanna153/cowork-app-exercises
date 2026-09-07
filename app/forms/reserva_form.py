@@ -2,6 +2,6 @@ from flask_wtf import FlaskForm
 
 
 class ReservaForm(FlaskForm):
-    # EXERCÍCIO 3: crie os campos e validadores do formulário de Reserva.
+    # EXERCÍCIOS 6–10: crie o formulário, validadores e mensagens da reserva.
     # Inclua validações para data passada e horário inválido.
     pass

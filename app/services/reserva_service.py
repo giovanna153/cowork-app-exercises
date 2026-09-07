@@ -5,7 +5,7 @@ from app.models import Reserva
 
 
 class ReservaService:
-    # EXERCÍCIO 4: implemente CRUD para reservas.
+    # ETAPA DE SERVIÇOS: implemente o CRUD para reservas.
 
     def listar(self):
         pass
@@ -14,7 +14,7 @@ class ReservaService:
         pass
 
     def verificar_conflito(self, sala_id, data, hora_inicio, hora_fim, ignorar_id=None):
-        # EXERCÍCIO 5: detecte reservas sobrepostas no mesmo dia e sala.
+        # ETAPA DE REGRAS DE NEGÓCIO: detecte reservas sobrepostas no mesmo dia e sala.
         pass
 
     def salvar(self, formulario):

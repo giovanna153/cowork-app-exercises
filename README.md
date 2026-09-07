@@ -2,6 +2,8 @@
 
 Esta é uma versão inicial do projeto de Coworking. Ela contém a estrutura de um projeto Flask, mas possui lacunas para serem implementadas.
 
+As questões completas estão em [QUESTOES.md](QUESTOES.md).
+
 ## Instalação e execução
 
 ### Pré-requisitos
@@ -82,11 +84,16 @@ primeira execução.
 
 ## Ordem sugerida
 
-1. `app/models/`: crie `Sala`, `Reserva` e o relacionamento entre elas;
-2. `app/forms/`: crie `SalaForm` e `ReservaForm` com validações;
-3. `app/services/`: implemente as operações de banco e o conflito de horários;
-4. `app/routes.py`: implemente as rotas usando os serviços e os formulários;
-5. `app/templates/`: complete `sala_form.html` e `reserva_form.html`;
-6. Teste o fluxo completo no navegador.
+A numeração oficial é a da lista de exercícios em Pages:
+
+1. Exercícios 1 a 5 — `app/models/`: crie `Sala`, `Reserva` e o relacionamento
+   entre elas;
+2. Exercícios 6 a 10 — `app/forms/`: crie `SalaForm` e `ReservaForm` com
+   choices e validações;
+3. Etapa de serviços — `app/services/`: implemente as operações de banco;
+4. Etapa de regras de negócio — implemente a detecção de conflitos de horários;
+5. Etapa de rotas — `app/routes.py`: use os serviços e formulários;
+6. Etapa de templates — complete `sala_form.html` e `reserva_form.html`;
+7. Teste o fluxo completo no navegador.
 
 Não implemente autenticação, autorização ou blueprints nesta atividade.

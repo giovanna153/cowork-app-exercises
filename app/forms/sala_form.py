@@ -2,5 +2,5 @@ from flask_wtf import FlaskForm
 
 
 class SalaForm(FlaskForm):
-    # EXERCÍCIO 2: crie os campos, choices e validadores do formulário de Sala.
+    # EXERCÍCIOS 6–10: crie o formulário, choices, validadores e mensagens.
     pass
