@@ -135,7 +135,7 @@ Antes do Exercício 1:
 1. crie e ative o ambiente virtual;
 2. instale as dependências;
 3. execute a aplicação inicial;
-4. confirme que o servidor inicia sem erro e que a página inicial pode ser acessada.
+4. confirme que o servidor inicia sem erro. Nesta fase, as rotas ainda estão incompletas e a página inicial será implementada posteriormente.
 
 ### Fase 1 — Modelos e banco
 
@@ -298,6 +298,7 @@ Use os critérios abaixo para verificar cada exercício antes de avançar.
 
 ### Exercício 14
 
+- O dashboard `/` exibe o resumo e as próximas reservas.
 - É possível criar uma sala válida pelo navegador.
 - Sala inválida retorna ao formulário com os erros e dados preenchidos.
 - A lista de salas exibe os registros persistidos.
@@ -548,10 +549,11 @@ Teste os seguintes casos:
 
 ### Exercício 14 — CRUD de salas
 
-Objetivo: conectar `SalaForm`, `SalaService` e os templates.
+Objetivo: conectar `SalaForm`, `SalaService` e os templates, além de montar o dashboard inicial.
 
 Implemente:
 
+- `GET /`;
 - `GET/POST /salas/nova`;
 - `GET /salas`;
 - `GET/POST /salas/<int:sala_id>/editar`;
@@ -559,6 +561,7 @@ Implemente:
 
 Requisitos:
 
+- no dashboard, mostre o resumo e as próximas reservas;
 - no `GET`, mostre o formulário;
 - no `POST`, use `validate_on_submit()`;
 - use `sala_service.salvar(form)` e `sala_service.atualizar(...)`;
