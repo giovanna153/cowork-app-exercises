@@ -144,8 +144,8 @@ Implemente os Exercícios 1 a 5.
 Ao concluir, verifique:
 
 - a aplicação inicia sem erro;
-- as tabelas `salas` e `reservas` são criadas;
-- a chave estrangeira `sala_id` aponta para `salas.id`;
+- as tabelas `sala` e `reserva` são criadas;
+- a chave estrangeira `sala_id` aponta para `sala.id`;
 - é possível acessar `reserva.sala` e `sala.reservas`;
 - os nomes das tabelas e colunas correspondem ao esquema esperado.
 
@@ -202,21 +202,21 @@ Use os critérios abaixo para verificar cada exercício antes de avançar.
 ### Exercício 1
 
 - A classe `Sala` herda de `db.Model`.
-- A tabela criada se chama `salas`.
+- A tabela criada se chama `sala`.
 - O modelo possui chave primária inteira `id`.
 - Os campos de nome, tipo, capacidade, descrição e disponibilidade possuem tipos compatíveis com o esquema.
 
 ### Exercício 2
 
 - A classe `Reserva` herda de `db.Model`.
-- A tabela criada se chama `reservas`.
+- A tabela criada se chama `reserva`.
 - A data usa `Date`.
 - Os horários usam `Time`.
 - Os campos textuais usam `String`.
 
 ### Exercício 3
 
-- `Reserva.sala_id` referencia `salas.id`.
+- `Reserva.sala_id` referencia `sala.id`.
 - `reserva.sala` retorna a sala associada.
 - `sala.reservas` retorna as reservas da sala.
 - A aplicação cria os modelos sem erro de relacionamento.
@@ -230,7 +230,7 @@ Use os critérios abaixo para verificar cada exercício antes de avançar.
 
 ### Exercício 5
 
-- Ao iniciar a aplicação, as tabelas `salas` e `reservas` são criadas.
+- Ao iniciar a aplicação, as tabelas `sala` e `reserva` são criadas.
 - Os nomes das tabelas e das colunas correspondem ao esquema documentado.
 - O banco pode ser consultado sem erro depois da criação.
 
@@ -353,7 +353,7 @@ Em `app/models/reserva.py`, crie a classe `Reserva`. Use `Date` para a data, `Ti
 
 ### Exercício 3 — Relacionamento entre os modelos
 
-Crie `sala_id` como chave estrangeira para `salas.id`. Configure o relacionamento bidirecional: uma `Sala` possui várias reservas e uma `Reserva` pertence a uma `Sala`.
+Crie `sala_id` como chave estrangeira para `sala.id`. Configure o relacionamento bidirecional: uma `Sala` possui várias reservas e uma `Reserva` pertence a uma `Sala`.
 
 O relacionamento deve permitir acessar:
 
@@ -368,11 +368,13 @@ Use `nullable=False` nos campos obrigatórios. Considere como opcionais `descric
 
 Confira os nomes das tabelas e das colunas antes de executar `db.create_all()`.
 
-Ao iniciar a aplicação, as tabelas `salas` e `reservas` devem ser criadas sem erro.
+Ao iniciar a aplicação, as tabelas `sala` e `reserva` devem ser criadas sem erro.
 
 ### Esquema esperado dos modelos
 
-#### `Sala` — tabela `salas`
+Não declare `__tablename__` nos modelos. O Flask-SQLAlchemy deve derivar os nomes das tabelas a partir das classes: `Sala` gera `sala` e `Reserva` gera `reserva`.
+
+#### `Sala` — tabela `sala`
 
 | Campo | Tipo | Obrigatoriedade e regras |
 |---|---|---|
@@ -383,12 +385,12 @@ Ao iniciar a aplicação, as tabelas `salas` e `reservas` devem ser criadas sem 
 | `descricao` | `String` | Opcional |
 | `disponivel` | `Boolean` | Obrigatório; valor padrão `True` |
 
-#### `Reserva` — tabela `reservas`
+#### `Reserva` — tabela `reserva`
 
 | Campo | Tipo | Obrigatoriedade e regras |
 |---|---|---|
 | `id` | `Integer` | Chave primária |
-| `sala_id` | `Integer` | Chave estrangeira para `salas.id`; obrigatório (`nullable=False`) |
+| `sala_id` | `Integer` | Chave estrangeira para `sala.id`; obrigatório (`nullable=False`) |
 | `responsavel` | `String` | Obrigatório (`nullable=False`) |
 | `equipe` | `String` | Opcional |
 | `data` | `Date` | Obrigatório (`nullable=False`) |
