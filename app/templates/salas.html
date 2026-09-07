@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Salas{% endblock %}
+
+{% block content %}
+    <section class="page-head">
+        <div class="container d-flex justify-content-between align-items-end">
+            <div>
+                <p class="eyebrow">ESPAÇOS DISPONÍVEIS</p>
+                <h1>Salas</h1>
+                <p>Gerencie os ambientes do seu coworking.</p>
+            </div>
+            <a class="btn btn-primary" href="{{ url_for('nova_sala') }}">
+                <i class="bi bi-plus-lg"></i> Nova sala
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4">
+                {% for sala in salas %}
+                    <div class="col-md-6 col-xl-4">
+                        <div class="room-card">
+                            <div class="room-icon">
+                                <i class="bi bi-{{ 'people' if sala.tipo == 'Sala de reunião' else 'broadcast-pin' if sala.tipo == 'Auditório' else 'laptop' }}"></i>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <h3>{{ sala.nome }}</h3>
+                                {% if sala.disponivel %}
+                                    <span class="badge-available">Disponível</span>
+                                {% else %}
+                                    <span class="badge-unavailable">Indisponível</span>
+                                {% endif %}
+                            </div>
+
+                            <p class="text-muted">
+                                {{ sala.tipo }} · até {{ sala.capacidade }} pessoas
+                            </p>
+                            <p>{{ sala.descricao or 'Espaço confortável para sua equipe.' }}</p>
+
+                            <div class="room-actions">
+                                <a href="{{ url_for('nova_reserva') }}?sala_id={{ sala.id }}"
+                                   class="btn btn-sm btn-primary">
+                                    Reservar
+                                </a>
+                                <a href="{{ url_for('editar_sala', sala_id=sala.id) }}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Editar
+                                </a>
+                                <form method="post"
+                                      action="{{ url_for('excluir_sala', sala_id=sala.id) }}"
+                                      class="d-inline">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button class="btn btn-sm btn-link text-danger"
+                                            onclick="return confirm('Excluir esta sala?')">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="empty">Nenhuma sala cadastrada.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

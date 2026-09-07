@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <p class="eyebrow">SISTEMA DE RESERVAS DE SALAS</p>
+                    <h1>Seu espaço para <span>construir o futuro.</span></h1>
+                    <p class="lead">
+                        Encontre a sala ideal, escolha o melhor horário e mantenha seu time em movimento.
+                    </p>
+                    <a class="btn btn-primary btn-lg" href="{{ url_for('nova_reserva') }}">
+                        Fazer uma reserva <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="col-lg-5 hero-art">
+                    <div class="art-card">
+                        <i class="bi bi-calendar2-check"></i>
+                        <strong>Reserve sem conflitos</strong>
+                        <small>Agenda simples e organizada</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <p class="eyebrow">VISÃO GERAL</p>
+                <h2>Tudo sob controle</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="bi bi-door-open"></i>
+                        <strong>{{ salas|length }}</strong>
+                        <span>salas cadastradas</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="bi bi-calendar-event"></i>
+                        <strong>{{ resumo.hoje }}</strong>
+                        <span>reservas hoje</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat">
+                        <i class="bi bi-calendar2-week"></i>
+                        <strong>{{ resumo.total }}</strong>
+                        <span>reservas realizadas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section muted">
+        <div class="container">
+            <div class="section-title">
+                <p class="eyebrow">PRÓXIMOS AGENDAMENTOS</p>
+                <h2>Agenda do coworking</h2>
+            </div>
+
+            {% if resumo.proximas %}
+                <div class="table-responsive card-clean">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Sala</th>
+                                <th>Responsável</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in resumo.proximas %}
+                                <tr>
+                                    <td>{{ reserva.data.strftime('%d/%m/%Y') }}</td>
+                                    <td>
+                                        {{ reserva.hora_inicio.strftime('%H:%M') }} –
+                                        {{ reserva.hora_fim.strftime('%H:%M') }}
+                                    </td>
+                                    <td>{{ reserva.sala.nome }}</td>
+                                    <td>{{ reserva.responsavel }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty">
+                    Nenhuma reserva cadastrada.
+                    <a href="{{ url_for('nova_reserva') }}">Crie a primeira.</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

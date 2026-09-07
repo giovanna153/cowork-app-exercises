@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+    <section class="page-head">
+        <div class="container d-flex justify-content-between align-items-end">
+            <div>
+                <p class="eyebrow">AGENDA</p>
+                <h1>Reservas</h1>
+                <p>Consulte e organize os horários reservados.</p>
+            </div>
+            <a class="btn btn-primary" href="{{ url_for('nova_reserva') }}">
+                <i class="bi bi-plus-lg"></i> Nova reserva
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="table-responsive card-clean">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Data e horário</th>
+                            <th>Sala</th>
+                            <th>Responsável</th>
+                            <th>Finalidade</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas %}
+                            <tr>
+                                <td>
+                                    <strong>{{ reserva.data.strftime('%d/%m/%Y') }}</strong><br>
+                                    <small>
+                                        {{ reserva.hora_inicio.strftime('%H:%M') }} –
+                                        {{ reserva.hora_fim.strftime('%H:%M') }}
+                                    </small>
+                                </td>
+                                <td>{{ reserva.sala.nome }}</td>
+                                <td>
+                                    {{ reserva.responsavel }}<br>
+                                    <small>{{ reserva.equipe or '' }}</small>
+                                </td>
+                                <td>{{ reserva.finalidade or '—' }}</td>
+                                <td class="text-end">
+                                    <a class="btn btn-sm btn-outline-secondary"
+                                       href="{{ url_for('editar_reserva', reserva_id=reserva.id) }}">
+                                        Editar
+                                    </a>
+                                    <form method="post"
+                                          class="d-inline"
+                                          action="{{ url_for('excluir_reserva', reserva_id=reserva.id) }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-link text-danger"
+                                                onclick="return confirm('Cancelar esta reserva?')">
+                                            Cancelar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    Nenhuma reserva encontrada.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}
