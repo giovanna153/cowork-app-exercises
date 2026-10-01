@@ -11,9 +11,7 @@ reserva_service = ReservaService()
 
 @app.route("/")
 def home():
-    # ETAPA DE ROTAS: mostre o resumo e as próximas reservas no dashboard.
-    pass
-
+    return "Sistema de reservas de salas"
 
 @app.route("/salas")
 def listar_salas():
