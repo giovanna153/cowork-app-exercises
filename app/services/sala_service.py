@@ -5,20 +5,49 @@ from app.models import Sala
 
 
 class SalaService:
-    # ETAPA DE SERVIÇOS: implemente os métodos abaixo.
-    # Use try/except nas operações que alteram o banco, com rollback e False.
 
-    def listar(self):
-        pass
+    @staticmethod
+    def listar():
+        return Sala.query.all()
 
-    def buscar_por_id(self, sala_id):
-        pass
+    @staticmethod
+    def buscar_por_id(sala_id):
+        return db.session.get(Sala, sala_id)
 
-    def salvar(self, formulario):
-        pass
+    @staticmethod
+    def salvar(formulario):
+        sala = Sala()
 
-    def atualizar(self, sala, formulario):
-        pass
+        formulario.populate_obj(sala)
 
-    def remover(self, sala):
-        pass
+        try:
+            db.session.add(sala)
+            db.session.commit()
+            return sala
+
+        except Exception:
+            db.session.rollback()
+            return False
+
+    @staticmethod
+    def atualizar(sala, formulario):
+        formulario.populate_obj(sala)
+
+        try:
+            db.session.commit()
+            return sala
+
+        except Exception:
+            db.session.rollback()
+            return False
+
+    @staticmethod
+    def remover(sala):
+        try:
+            db.session.delete(sala)
+            db.session.commit()
+            return True
+
+        except Exception:
+            db.session.rollback()
+            return False

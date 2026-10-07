@@ -16,7 +16,9 @@ def home():
 @app.route("/salas")
 def listar_salas():
     # ETAPA DE ROTAS: liste as salas usando SalaService.
-    pass
+    salas = sala_service.listar()
+    return render_template("salas/listar.html", salas=salas)
+
 
 
 @app.route("/salas/nova", methods=["GET", "POST"])
