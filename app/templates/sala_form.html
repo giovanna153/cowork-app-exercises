@@ -13,12 +13,36 @@
     <section class="section">
         <div class="container">
             <form method="post" class="form-card">
-                {# ETAPA DE TEMPLATES: renderize form.hidden_tag(), os campos do SalaForm,
-                   os erros de validação e o botão de envio. #}
+                {{ form.hidden_tag() }}
 
-                <p class="text-muted">
-                    Complete este formulário usando os campos criados em SalaForm.
-                </p>
+                <div>
+                    {{ form.nome.label }}
+                    {{ form.nome() }}
+                </div>
+
+                <div>
+                    {{ form.tipo.label }}
+                    {{ form.tipo() }}
+                </div>
+
+                <div>
+                    {{ form.capacidade.label }}
+                    {{ form.capacidade() }}
+                </div>
+
+                <div>
+                    {{ form.descricao.label }}
+                    {{ form.descricao() }}
+                </div>
+
+                <div>
+                    {{ form.disponivel.label }}
+                    {{ form.disponivel() }}
+                </div>
+
+                <div>
+                    {{ form.submit() }}
+                </div>
             </form>
         </div>
     </section>

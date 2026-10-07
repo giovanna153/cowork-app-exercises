@@ -25,7 +25,7 @@ class Reserva(db.Model):
 
     finalidade = db.Column(db.String(255))
 
-    sala = db.relationship("Sala", back_populates ="reservas")
+    sala = db.relationship("Sala", back_populates ="reservar")
 
     # EXERCÍCIO 4: defina quais campos podem ser opcionais.
     # EXERCÍCIO 5: confira os nomes da tabela e das colunas antes de create_all().

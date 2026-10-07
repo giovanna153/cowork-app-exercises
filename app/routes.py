@@ -17,20 +17,48 @@ def home():
 def listar_salas():
     # ETAPA DE ROTAS: liste as salas usando SalaService.
     salas = sala_service.listar()
-    return render_template("salas/listar.html", salas=salas)
+    return render_template("salas.html", salas=salas)
 
 
 
 @app.route("/salas/nova", methods=["GET", "POST"])
 def nova_sala():
     # ETAPA DE ROTAS: crie SalaForm, valide e salve uma sala.
-    pass
+    form = SalaForm()
 
+    if form.validate_on_submit():
+        sala = sala_service.salvar(form)
+
+        if sala:
+            flash("Sala cadastrada com sucesso!", "success")
+            return redirect(url_for("listar_salas"))
+
+    return render_template("sala_form.html", form=form)
+        
 
 @app.route("/salas/<int:sala_id>/editar", methods=["GET", "POST"])
 def editar_sala(sala_id):
     # ETAPA DE ROTAS: busque, preencha, valide e atualize uma sala.
-    pass
+
+    sala = sala_service.buscar_por_id(sala_id)
+
+    if sala is None:
+        flash("Sala não encontrada.", "warning")
+        return redirect(url_for("listar_salas"))
+
+    form = SalaForm(obj=sala)
+
+    if form.validate_on_submit():
+        sala_atualizada = sala_service.atualizar(sala, form)
+
+        if sala_atualizada:
+            flash("Sala atualizada com sucesso!", "success")
+            return redirect(url_for("listar_salas"))
+
+        flash("Não foi possível atualizar a sala.", "danger")
+
+    return render_template("sala_form.html", form=form)
+        
 
 
 @app.post("/salas/<int:sala_id>/excluir")

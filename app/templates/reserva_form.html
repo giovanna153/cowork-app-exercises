@@ -13,12 +13,46 @@
     <section class="section">
         <div class="container">
             <form method="post" class="form-card">
-                {# ETAPA DE TEMPLATES: renderize form.hidden_tag(), os campos do ReservaForm,
-                   os erros de validação e o botão de envio. #}
+                {{ form.hidden_tag() }}
+ 
+                <div>
+                    {{form.responsavel.label}}
+                    {{form.responsavel()}}
+                </div>
 
-                <p class="text-muted">
-                    Complete este formulário usando os campos criados em ReservaForm.
-                </p>
+                <div>
+                    {{form.equipe.label}}
+                    {{form.equipe()}}
+                </div>
+
+                <div>
+                    {{form.sala_id.label}}
+                    {{form.sala_id()}}                   
+                </div>
+
+                <div>
+                    {{form.data.label}}
+                    {{form.data()}}
+                </div>
+
+                <div>
+                    {{form.hora_inicio.label}}
+                    {{form.hora_inicio()}}
+                </div>
+
+                <div>
+                    {{form.hora_fim.label}}
+                    {{form.hora_fim()}}
+                </div>
+
+                <div>
+                    {{form.finalidade.label}}
+                    {{form.finalidade()}}
+                </div>
+
+                <div>
+                    {{ form.submit() }}
+                </div>
             </form>
         </div>
     </section>
