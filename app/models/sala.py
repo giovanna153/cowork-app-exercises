@@ -9,7 +9,7 @@ class Sala(db.Model):
     capacidade = db.Column(db.Integer, nullable =False)
     descricao = db.Column(db.String(255))
     disponivel = db.Column(db.Boolean, nullable=False, default=True) # descrição
-    reservar = db.relationship("Reserva", back_populates = "sala")
+    reservas = db.relationship("Reserva", back_populates = "sala")
 
     # Sugestão: id, nome, tipo, capacidade, descricao e disponivel.
     id = db.Column(db.Integer, primary_key=True)

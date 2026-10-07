@@ -11,7 +11,16 @@ reserva_service = ReservaService()
 
 @app.route("/")
 def home():
-    return "Sistema de reservas de salas"
+    salas = sala_service.listar()
+    reservas = reserva_service.listar
+    
+    resumo = {
+        "hoje": 0,
+        "total": len(reservas),
+        "proximas": reservas
+    }
+
+    return render_template("index.html", salas=salas)
 
 @app.route("/salas")
 def listar_salas():
@@ -63,9 +72,27 @@ def editar_sala(sala_id):
 
 @app.post("/salas/<int:sala_id>/excluir")
 def excluir_sala(sala_id):
-    # ETAPA DE ROTAS: implemente a remoção de uma sala.
-    pass
+    sala = sala_service.buscar_por_id(sala_id)
 
+    if sala is None:
+        flash("Sala não encontrada.", "warning")
+        return redirect(url_for("listar_salas"))
+
+    if sala.reservas:
+        flash(
+            "Não é possível excluir uma sala que possui reservas.",
+            "warning"
+        )
+        return redirect(url_for("listar_salas"))
+
+    removida = sala_service.remover(sala)
+
+    if removida:
+        flash("Sala excluída com sucesso!", "success")
+    else:
+        flash("Não foi possível excluir a sala.", "danger")
+
+    return redirect(url_for("listar_salas"))
 
 @app.route("/reservas")
 def listar_reservas():
